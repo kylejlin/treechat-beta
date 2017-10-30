@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static('./react-app/build'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/react-app/build/index.html');
+  res.sendFile('/react-app/build/index.html');
 });
 
 server.listen(PORT, () => {
