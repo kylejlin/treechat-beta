@@ -6,7 +6,7 @@ const server = http.Server(app);
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/react-app/build/index.html');
 });
 
 server.listen(PORT, () => {
