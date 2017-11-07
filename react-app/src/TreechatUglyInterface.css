@@ -1,0 +1,14 @@
+.TreechatUglyInterface {
+  background-color: #DDDDDD;
+  height: 100%;
+}
+
+.TreechatUglyInterface h1 {
+  margin: 0;
+  padding: 10px;
+  color: #292929;
+}
+
+.TreechatUglyInterface h1 span {
+  font-size: small;
+}

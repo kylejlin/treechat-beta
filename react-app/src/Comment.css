@@ -1,0 +1,21 @@
+.Comment {
+  cursor: pointer;
+}
+
+.Comment-green {
+  background-color: #808000;
+  color: white;
+}
+
+.Comment-green.Comment-highlighted {
+  background-color: #B0B000;
+}
+
+.Comment-white {
+  background-color: #F0F0F0;
+  color: #808000;
+}
+
+.Comment-white.Comment-highlighted {
+  background-color: #FFFFFF;
+}
