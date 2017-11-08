@@ -40,6 +40,7 @@ class TreechatUglyInterface extends Component {
               timestamp={timestamp}
               id={id}
               childComments={childComments}
+              nestLevel={0}
               state={this.state}
               dispatch={this.store.dispatch}
             />

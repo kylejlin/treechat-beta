@@ -8,13 +8,14 @@ function Comment({
   timestamp,
   id,
   childComments,
+  nestLevel,
   state,
   dispatch
 }) {
   let className = 'Comment';
 
   className += ' ';
-  className += (id % 2 === 0 ? 'Comment-green' : 'Comment-white');
+  className += (nestLevel % 2 === 0 ? 'Comment-green' : 'Comment-white');
 
   className += (state.ui.highlightedCommentId === id ? ' Comment-highlighted' : '');
 
@@ -52,6 +53,7 @@ function Comment({
                     timestamp={timestamp}
                     id={id}
                     childComments={childComments}
+                    nestLevel={nestLevel + 1}
                     state={state}
                     dispatch={dispatch}
                   />;
