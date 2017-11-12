@@ -1,10 +1,9 @@
 import React from 'react';
+import create from './actionCreator';
 
 function Login({
-  existingUserLoginInputs: { username, password, handleUsernameChange, handlePasswordChange },
-  createUserFormInputs: { newUsername, newPassword, handleNewUsernameChange, handleNewPasswordChange },
-  handleLogin,
-  handleNewUserCreation
+  state,
+  dispatch
 }) {
   return (
     <ul>
@@ -13,13 +12,21 @@ function Login({
         <ul>
           <li><h3>Username</h3></li>
           <li>
-            <input type="text" value={username} onChange={handleUsernameChange} />
+            <input
+              type="text"
+              value={state.ui.login.username}
+              onChange={(e) => dispatch(create.editLoginUsername(e.target.value))}
+            />
           </li>
           <li><h3>Password</h3></li>
           <li>
-            <input type="password" value={password} onChange={handlePasswordChange} />
+            <input
+              type="password"
+              value={state.ui.login.password}
+              onChange={(e) => dispatch(create.editLoginPassword(e.target.value))}
+            />
           </li>
-          <li><button onClick={handleLogin}>Log in</button></li>
+          <li><button onClick={() => dispatch(create.login())}>Log in</button></li>
         </ul>
       </li>
 
@@ -27,10 +34,18 @@ function Login({
       <li>
         <ul>
           <li><h3>Choose a username (/[a-zA-Z0-9]/ only)</h3></li>
-          <li><input type="text" value={newUsername} onChange={handleNewUsernameChange} /></li>
+          <li><input
+            type="text"
+            value={state.ui.signUp.username}
+            onChange={(e) => dispatch(create.editNewUsername(e.target.value))}
+          /></li>
           <li><h3>Choose a password</h3></li>
-          <li><input type="password" value={newPassword} onChange={handleNewPasswordChange} /></li>
-          <li><button onClick={handleNewUserCreation}>Create</button></li>
+          <li><input
+            type="password"
+            value={state.ui.signUp.password}
+            onChange={(e) => dispatch(create.editNewPassword(e.target.value))}
+          /></li>
+          <li><button onClick={() => dispatch(create.signUp())}>Create</button></li>
         </ul>
       </li>
     </ul>
