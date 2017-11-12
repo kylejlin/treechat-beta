@@ -7,6 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm run build",
     "start": "node index.js",
     "build": "npm run --prefix react-app build"
   },
