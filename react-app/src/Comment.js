@@ -1,6 +1,5 @@
 import React from 'react';
 import create from './actionCreator';
-import renderTimestamp from './renderTimestamp';
 import './Comment.css';
 
 function Comment({
@@ -38,7 +37,7 @@ function Comment({
     >
       <p className="Comment-text">{text}</p>
       <p className="Comment-author">{author}</p>
-      <p className="Comment-timestamp">{renderTimestamp(timestamp)}</p>
+      <p className="Comment-timestamp">{timestamp}</p>
 
       {
         childComments.length > 0

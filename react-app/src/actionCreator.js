@@ -3,16 +3,7 @@ const actionSpecs = {
   MOUSE_OVER_COMMENT: ['id'],
   MOUSE_OUT_OF_COMMENT: ['id'],
   EDIT_REPLY: ['reply'],
-  SEND_REPLY: [],
-  EDIT_LOGIN_USERNAME: ['username'],
-  EDIT_LOGIN_PASSWORD: ['password'],
-  LOGIN: [],
-  EDIT_NEW_USERNAME: ['username'],
-  EDIT_NEW_PASSWORD: ['password'],
-  SIGN_UP: [],
-  SET_TIMELINES: ['timelines'],
-  UPDATE_TIMELINE: ['timelineId', 'update'],
-  SET_FOCUSED_TIMELINE: ['timeline']
+  SEND_REPLY: []
 };
 
 const createActionCreator = (name, propertyNames) => {
