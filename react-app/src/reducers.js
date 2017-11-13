@@ -127,6 +127,89 @@ export default (socket) => [
           ...state,
           focusedTimeline: action.timeline
         };
+      case 'RESELECT_TIMELINE':
+        return {
+          ...state,
+          focusedTimeline: null
+        };
+      case 'EDIT_TIMELINE_NAME':
+        return {
+          ...state,
+          ui: {
+            ...state.ui,
+            createTimeline: {
+              ...state.ui.createTimeline,
+              name: action.name
+            }
+          }
+        };
+      case 'CREATE_TIMELINE':
+        if (
+          !state.ui.createTimeline.name ||
+          state.ui.createTimeline.members.length === 0
+        ) {
+          return state;
+        }
+
+        socket.emit('new timeline', [state.ui.createTimeline.name, state.ui.createTimeline.members]);
+
+        return {
+          ...state,
+          ui: {
+            ...state.ui,
+            createTimeline: {
+              ...state.ui.createTimeline,
+              name: '',
+              members: [],
+              newMemberName: ''
+            }
+          }
+        };
+      case 'REMOVE_MEMBER':
+        const memberArrayWithoutRemovee = state.ui.createTimeline.members.slice();
+
+        if (action.index in memberArrayWithoutRemovee) {
+          memberArrayWithoutRemovee.splice(action.index, 1);
+        }
+
+        return {
+          ...state,
+          ui: {
+            ...state.ui,
+            createTimeline: {
+              ...state.ui.createTimeline,
+              members: memberArrayWithoutRemovee
+            }
+          }
+        };
+      case 'EDIT_NEW_MEMBER_NAME':
+        return {
+          ...state,
+          ui: {
+            ...state.ui,
+            createTimeline: {
+              ...state.ui.createTimeline,
+              newMemberName: action.name
+            }
+          }
+        };
+      case 'ADD_MEMBER':
+        return {
+          ...state,
+          ui: {
+            ...state.ui,
+            createTimeline: {
+              ...state.ui.createTimeline,
+              newMemberName: '',
+              members: state.ui.createTimeline.members.concat([state.ui.createTimeline.newMemberName])
+            }
+          }
+        };
+      case 'NEW_TIMELINE':
+        return {
+          ...state,
+          timelines: state.timelines.concat([action.timeline])
+        };
       default:
         throw new Error('Illegal action dispatched!'); // Fail loudly
         // return state;

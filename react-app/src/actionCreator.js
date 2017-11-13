@@ -12,7 +12,14 @@ const actionSpecs = {
   SIGN_UP: [],
   SET_TIMELINES: ['timelines'],
   UPDATE_TIMELINE: ['timelineId', 'update'],
-  SET_FOCUSED_TIMELINE: ['timeline']
+  SET_FOCUSED_TIMELINE: ['timeline'],
+  RESELECT_TIMELINE: [],
+  EDIT_TIMELINE_NAME: ['name'],
+  CREATE_TIMELINE: [],
+  REMOVE_MEMBER: ['index'],
+  EDIT_NEW_MEMBER_NAME: ['name'],
+  ADD_MEMBER: [],
+  NEW_TIMELINE: ['timeline']
 };
 
 const createActionCreator = (name, propertyNames) => {

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import Login from './Login';
 import Comment from './Comment';
 import TimelineSelector from './TimelineSelector';
+import Button from './Button';
 import createStore from './createStore';
 import createReducers from './reducers';
 import addSocketListeners from './addSocketListeners';
 import createRootCommentFromTimeline from './createRootCommentFromTimeline';
 import openSocket from 'socket.io-client';
+import create from './actionCreator';
 import './TreechatUglyInterface.css';
 
 class TreechatUglyInterface extends Component {
@@ -28,6 +30,11 @@ class TreechatUglyInterface extends Component {
         signUp: {
           username: '',
           password: ''
+        },
+        createTimeline: {
+          name: '',
+          members: [],
+          newMemberName: ''
         }
       }
     };
@@ -50,15 +57,18 @@ class TreechatUglyInterface extends Component {
               dispatch={this.store.dispatch}
             /> : (
             this.state.focusedTimeline === null ?
-              <TimelineSelector
-                timelines={this.state.timelines}
-                state={this.state}
-                dispatch={this.store.dispatch}
-              /> :
+              (
+                <TimelineSelector
+                  timelines={this.state.timelines}
+                  state={this.state}
+                  dispatch={this.store.dispatch}
+                />
+              ) :
               ((() => {
                 const [text, author, timestamp, id, ...childComments] = createRootCommentFromTimeline(this.state.focusedTimeline);
 
-                return (
+                return [
+                  <Button action={create.reselectTimeline()} dispatch={this.store.dispatch}>Select another thread</Button>,
                   <Comment
                     text={text}
                     author={author}
@@ -69,7 +79,7 @@ class TreechatUglyInterface extends Component {
                     state={this.state}
                     dispatch={this.store.dispatch}
                   />
-                );
+                ];
               })())
             )
         }

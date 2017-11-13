@@ -7,6 +7,10 @@ export default (socket, state, dispatch) => {
     dispatch(create.setTimelines(timelines));
   });
 
+  socket.on('new timeline', timeline => {
+    dispatch(create.newTimeline(timeline));
+  });
+
   socket.on('new update', ([timelineId, update]) => {
     const timeline = state().timelines.find(([[id]]) => id === timelineId);
 

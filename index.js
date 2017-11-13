@@ -5,7 +5,7 @@ const io = require('socket.io')(http);
 
 let timelineIdCounter = 1;
 const timelines = [require('./testTimeline.js')];
-const users = [];
+const users = require('./testUsers.js');
 
 const getTimestamp = require('./getTimestamp.js');
 
@@ -103,6 +103,15 @@ io.on('connection', (socket) => {
     const rootComment = [text, user.username, getTimestamp()];
     const headUpdate = [timelineIdCounter, rootComment, otherMembers];
     const timeline = [headUpdate];
+
+    timelines.push(timeline);
+
+    const usersToBeAlerted = users.filter(timelineIsAccessibleToUser(timeline));
+    const socketsToEmitTo = usersToBeAlerted.reduce((arr, user) => arr.concat(user.sockets), []);
+
+    for (let socket of socketsToEmitTo) {
+      socket.emit('new timeline', timeline);
+    }
 
     timelineIdCounter = timelineIdCounter + 1;
   });
