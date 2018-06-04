@@ -46,6 +46,7 @@ io.on('connection', (socket) => {
         user.sockets.push(socket);
       }
       socket.emit('timelines', timelines.filter(userHasAccessToTimeline(user)));
+      socket.emit('username', user.username);
     } else {
       socket.emit('invalid field');
     }
@@ -73,6 +74,8 @@ io.on('connection', (socket) => {
     };
 
     users.push(user);
+
+    socket.emit('username', user.username);
   });
 
   socket.on('disconnect', () => {
@@ -140,5 +143,23 @@ io.on('connection', (socket) => {
     for (let socket of socketsToEmitTo) {
       socket.emit('new update', [timelineId, update]);
     }
+  });
+
+  socket.on('delete timeline', ([timelineId, text]) => {
+    const user = users.find(user => user.sockets.includes(socket));
+    const timeline = timelines.find(timeline => timelineId === timeline[0][0]);
+
+    if (
+      !user ||
+      !timeline ||
+      !timeline[0][1][1] === user.username ||
+      !timeline[0][1][0] === text
+    ) {
+      socket.emit('invalid field');
+      return;
+    }
+
+    timelines.splice(timelines.indexOf(timeline), 1);
+    socket.emit('delete timeline', timelineId);
   });
 });

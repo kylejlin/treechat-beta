@@ -19,7 +19,13 @@ const actionSpecs = {
   REMOVE_MEMBER: ['index'],
   EDIT_NEW_MEMBER_NAME: ['name'],
   ADD_MEMBER: [],
-  NEW_TIMELINE: ['timeline']
+  NEW_TIMELINE: ['timeline'],
+  REMOVE_LOCAL_TIMELINE: ['timelineId'],
+  CHECK_DELETE_TIMELINE: ['timelineId'],
+  CONFIRM_TIMELINE_DELETION: [],
+  CANCEL_TIMELINE_DELETION: [],
+  EDIT_TIMELINE_DELETION_CONFIRMATION_NAME: ['name'],
+  SET_USERNAME: ['username']
 };
 
 const createActionCreator = (name, propertyNames) => {

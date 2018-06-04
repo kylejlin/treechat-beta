@@ -3,7 +3,7 @@ import './Button.css';
 
 function Button({ action, dispatch, disabled, children }) {
   return (
-    <div className={disabled ? 'Button Button-disabled': 'Button'} onClick={() => dispatch(action)}>{children}</div>
+    <div className={disabled ? 'Button Button-disabled': 'Button'} onClick={(e) => {dispatch(action)}}>{children}</div>
   );
 }
 

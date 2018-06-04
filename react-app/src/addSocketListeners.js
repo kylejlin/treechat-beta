@@ -20,4 +20,12 @@ export default (socket, state, dispatch) => {
 
     dispatch(create.updateTimeline(timelineId, update));
   });
+
+  socket.on('delete timeline', timelineId => {
+    dispatch(create.removeLocalTimeline(timelineId));
+  });
+
+  socket.on('username', username => {
+    dispatch(create.setUsername(username));
+  });
 };

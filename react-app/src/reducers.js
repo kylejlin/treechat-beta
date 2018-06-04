@@ -210,6 +210,60 @@ export default (socket) => [
           ...state,
           timelines: state.timelines.concat([action.timeline])
         };
+      case 'REMOVE_LOCAL_TIMELINE':
+        return {
+          ...state,
+          timelines: state.timelines.filter(timeline => timeline[0][0] === action.timelineId),
+          focusedTimeline: state.focusedTimeline[0][0] === action.timelineId ? null : state.focusedTimeline
+        };
+      case 'CHECK_DELETE_TIMELINE':
+        return {
+          ...state,
+          deleteTimelineId: action.timelineId
+        };
+      case 'CONFIRM_TIMELINE_DELETION':
+        const timeline = state.timelines.find(timeline => timeline[0][0] === state.deleteTimelineId);
+        if (
+          !timeline ||
+          state.ui.deleteTimelineName !== timeline[0][1][0]
+        ) {
+          window.alert('Names do not match!');
+          return state;
+        }
+
+        socket.emit('delete timeline', [state.deleteTimelineId, state.ui.deleteTimelineName]);
+
+        return {
+          ...state,
+          deleteTimelineId: null,
+          ui: {
+            ...state.ui,
+            deleteTimelineName: ''
+          }
+        };
+      case 'CANCEL_TIMELINE_DELETION':
+        return {
+          ...state,
+          deleteTimelineId: null,
+          ui: {
+            ...state.ui,
+            deleteTimelineName: ''
+          }
+        };
+      case 'EDIT_TIMELINE_DELETION_CONFIRMATION_NAME':
+        return {
+          ...state,
+          ui: {
+            ...state.ui,
+            deleteTimelineName: action.name
+          }
+        };
+      case 'SET_USERNAME':
+        return {
+          ...state,
+          username: action.username,
+          isLoggedIn: true
+        };
       default:
         throw new Error('Illegal action dispatched!'); // Fail loudly
         // return state;

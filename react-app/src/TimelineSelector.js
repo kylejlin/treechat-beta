@@ -1,5 +1,6 @@
 import React from 'react';
 import TimelineCreator from './TimelineCreator';
+import Button from './Button';
 import create from './actionCreator';
 import './TimelineSelector.css';
 
@@ -23,6 +24,16 @@ function TimelineSelector({ timelines, state, dispatch }) {
                 {
                   otherMembers.length + 1 > MAX_MEMBERS_DISPLAYED ?
                     ` and ${otherMembers.length + 1 - MAX_MEMBERS_DISPLAYED} more`
+                    : null
+                }
+                {
+                  timeline[0][1][1] === state.username ?
+                    <Button
+                      action={create.checkDeleteTimeline(timeline[0][0])}
+                      dispatch={dispatch}
+                    >
+                      Delete
+                    </Button>
                     : null
                 }
               </li>
